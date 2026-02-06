@@ -22,147 +22,138 @@ interface AuthState {
 }
 
 export const useAuthStore = create<AuthState>()(
-  persist(
-    (set, get) => ({
-      session: null,
-      user: null,
-      profile: null,
-      loading: false,
-      initialized: false,
+  (set, get) => ({
+    session: null,
+    user: null,
+    profile: null,
+    loading: false,
+    initialized: false,
 
-      setSession: (session) => set({ session, user: session?.user ?? null }),
-      setProfile: (profile) => set({ profile }),
-      setLoading: (loading) => set({ loading }),
-      setInitialized: (initialized) => set({ initialized }),
+    setSession: (session) => set({ session, user: session?.user ?? null }),
+    setProfile: (profile) => set({ profile }),
+    setLoading: (loading) => set({ loading }),
+    setInitialized: (initialized) => set({ initialized }),
 
-      signUp: async (email, password, username) => {
-        set({ loading: true });
-        try {
-          const { data, error } = await supabase.auth.signUp({
-            email: email.trim(),
-            password,
-            options: {
-              data: { username: username || email.split('@')[0] },
-            },
-          });
+    signUp: async (email, password, username) => {
+      set({ loading: true });
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email: email.trim(),
+          password,
+          options: {
+            data: { username: username || email.split('@')[0] },
+          },
+        });
 
-          if (error) throw error;
+        if (error) throw error;
 
-          if (data.session) {
-            set({ session: data.session, user: data.user });
-            await get().fetchProfile();
-          }
-
-          return { error: null };
-        } catch (error: any) {
-          return { error: error.message || 'Sign up failed' };
-        } finally {
-          set({ loading: false });
-        }
-      },
-
-      signIn: async (email, password) => {
-        set({ loading: true });
-        try {
-          const { data, error } = await supabase.auth.signInWithPassword({
-            email: email.trim(),
-            password,
-          });
-
-          if (error) throw error;
-
+        if (data.session) {
           set({ session: data.session, user: data.user });
           await get().fetchProfile();
-
-          return { error: null };
-        } catch (error: any) {
-          return { error: error.message || 'Sign in failed' };
-        } finally {
-          set({ loading: false });
         }
-      },
 
-      signOut: async () => {
-        set({ loading: true });
-        try {
-          await supabase.auth.signOut();
-          set({ session: null, user: null, profile: null });
-        } catch (error) {
-          console.error('Sign out error:', error);
-        } finally {
-          set({ loading: false });
+        return { error: null };
+      } catch (error: any) {
+        return { error: error.message || 'Sign up failed' };
+      } finally {
+        set({ loading: false });
+      }
+    },
+
+    signIn: async (email, password) => {
+      set({ loading: true });
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: email.trim(),
+          password,
+        });
+
+        if (error) throw error;
+
+        set({ session: data.session, user: data.user });
+        await get().fetchProfile();
+
+        return { error: null };
+      } catch (error: any) {
+        return { error: error.message || 'Sign in failed' };
+      } finally {
+        set({ loading: false });
+      }
+    },
+
+    signOut: async () => {
+      set({ loading: true });
+      try {
+        await supabase.auth.signOut();
+        set({ session: null, user: null, profile: null });
+      } catch (error) {
+        console.error('Sign out error:', error);
+      } finally {
+        set({ loading: false });
+      }
+    },
+
+    fetchProfile: async () => {
+      const { user } = get();
+      if (!user) return;
+
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', user.id)
+          .single();
+
+        if (error) throw error;
+        set({ profile: data });
+      } catch (error) {
+        console.error('Fetch profile error:', error);
+      }
+    },
+
+    updateProfile: async (updates) => {
+      const { user } = get();
+      if (!user) return { error: 'No user logged in' };
+
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .update(updates)
+          .eq('id', user.id)
+          .select()
+          .single();
+
+        if (error) throw error;
+        set({ profile: data });
+        return { error: null };
+      } catch (error: any) {
+        return { error: error.message || 'Update failed' };
+      }
+    },
+
+    initialize: async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session) {
+          set({ session, user: session.user });
+          await get().fetchProfile();
         }
-      },
 
-      fetchProfile: async () => {
-        const { user } = get();
-        if (!user) return;
-
-        try {
-          const { data, error } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', user.id)
-            .single();
-
-          if (error) throw error;
-          set({ profile: data });
-        } catch (error) {
-          console.error('Fetch profile error:', error);
-        }
-      },
-
-      updateProfile: async (updates) => {
-        const { user } = get();
-        if (!user) return { error: 'No user logged in' };
-
-        try {
-          const { data, error } = await supabase
-            .from('profiles')
-            .update(updates)
-            .eq('id', user.id)
-            .select()
-            .single();
-
-          if (error) throw error;
-          set({ profile: data });
-          return { error: null };
-        } catch (error: any) {
-          return { error: error.message || 'Update failed' };
-        }
-      },
-
-      initialize: async () => {
-        try {
-          const { data: { session } } = await supabase.auth.getSession();
-          
+        // Listen for auth changes
+        supabase.auth.onAuthStateChange((_event, session) => {
+          set({ session, user: session?.user ?? null });
           if (session) {
-            set({ session, user: session.user });
-            await get().fetchProfile();
+            get().fetchProfile();
+          } else {
+            set({ profile: null });
           }
-
-          // Listen for auth changes
-          supabase.auth.onAuthStateChange((_event, session) => {
-            set({ session, user: session?.user ?? null });
-            if (session) {
-              get().fetchProfile();
-            } else {
-              set({ profile: null });
-            }
-          });
-        } catch (error) {
-          console.error('Auth initialization error:', error);
-        } finally {
-          set({ initialized: true });
-        }
-      },
-    }),
-    {
-      name: 'auth-storage',
-      storage: createJSONStorage(() => AsyncStorage),
-      partialize: (state) => ({
-        // Only persist these fields
-      }),
-    }
-  )
+        });
+      } catch (error) {
+        console.error('Auth initialization error:', error);
+      } finally {
+        set({ initialized: true });
+      }
+    },
+  })
 );
