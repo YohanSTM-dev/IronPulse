@@ -74,12 +74,12 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#1E293B',
-    borderRadius: 12,
+    backgroundColor: '#0F172A',
+    borderRadius: 16,
     borderWidth: 1,
     borderColor: '#334155',
     paddingHorizontal: 16,
-    minHeight: 52,
+    minHeight: 54,
   },
   inputError: {
     borderColor: '#F43F5E',

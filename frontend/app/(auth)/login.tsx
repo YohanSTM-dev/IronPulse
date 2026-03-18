@@ -23,13 +23,13 @@ export default function LoginScreen() {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      Alert.alert('Error', 'Please fill in all fields');
+      Alert.alert('Erreur', 'Remplis tous les champs');
       return;
     }
 
     const { error } = await signIn(email, password);
     if (error) {
-      Alert.alert('Login Failed', error);
+      Alert.alert('Connexion échouée', error);
     } else {
       router.replace('/(tabs)');
     }
@@ -51,14 +51,14 @@ export default function LoginScreen() {
               <Ionicons name="barbell" size={40} color="#10B981" />
             </View>
             <Text style={styles.logoText}>IronPulse</Text>
-            <Text style={styles.tagline}>Train. Track. Transform.</Text>
+            <Text style={styles.tagline}>Entraîne-toi. Suis-toi. Transforme-toi.</Text>
           </View>
 
           {/* Form */}
           <View style={styles.form}>
             <Input
-              label="Email"
-              placeholder="Enter your email"
+              label="E-mail"
+              placeholder="Entrez votre e-mail"
               value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
@@ -67,8 +67,8 @@ export default function LoginScreen() {
             />
 
             <Input
-              label="Password"
-              placeholder="Enter your password"
+              label="Mot de passe"
+              placeholder="Entrez votre mot de passe"
               value={password}
               onChangeText={setPassword}
               secureTextEntry
@@ -76,7 +76,7 @@ export default function LoginScreen() {
             />
 
             <Button
-              title="Sign In"
+              title="Se connecter"
               onPress={handleLogin}
               loading={loading}
               style={styles.loginButton}
@@ -85,9 +85,9 @@ export default function LoginScreen() {
 
           {/* Register Link */}
           <View style={styles.footer}>
-            <Text style={styles.footerText}>Don't have an account?</Text>
+            <Text style={styles.footerText}>Pas encore de compte ?</Text>
             <TouchableOpacity onPress={() => router.push('/(auth)/register')}>
-              <Text style={styles.registerLink}> Sign Up</Text>
+              <Text style={styles.registerLink}> Créer un compte</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

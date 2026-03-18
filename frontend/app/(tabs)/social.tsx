@@ -214,7 +214,7 @@ export default function SocialScreen() {
                 <View style={styles.emptyState}>
                   <Ionicons name="people-outline" size={48} color="#334155" />
                   <Text style={styles.emptyText}>
-                    You're not in any groups yet. Create one or join with an
+                    You are not in any groups yet. Create one or join with an
                     invite code!
                   </Text>
                 </View>

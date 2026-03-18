@@ -19,6 +19,7 @@ export interface Database {
           streak_count: number
           longest_streak: number
           total_workouts: number
+          training_frequency: number
           consistency_score: number
           created_at: string
           updated_at: string
@@ -32,6 +33,7 @@ export interface Database {
           streak_count?: number
           longest_streak?: number
           total_workouts?: number
+          training_frequency?: number
           consistency_score?: number
           created_at?: string
           updated_at?: string
@@ -45,6 +47,7 @@ export interface Database {
           streak_count?: number
           longest_streak?: number
           total_workouts?: number
+          training_frequency?: number
           consistency_score?: number
           created_at?: string
           updated_at?: string

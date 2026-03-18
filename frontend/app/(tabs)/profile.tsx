@@ -24,6 +24,13 @@ export default function ProfileScreen() {
   const [username, setUsername] = useState(profile?.username || '');
   const [fullName, setFullName] = useState(profile?.full_name || '');
 
+  const[joursConsecutifs,setJoursConsecutifs] = useState(0);
+
+
+  const incrementerJoursConsecutifs = () => {
+    setJoursConsecutifs(prev => prev + 1);
+  }
+
   const handleSignOut = () => {
     Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
       { text: 'Cancel', style: 'cancel' },
@@ -239,9 +246,23 @@ export default function ProfileScreen() {
               loading={loading}
               style={styles.modalButton}
             />
+
+
           </KeyboardAvoidingView>
         </View>
       </Modal>
+
+      {/* Incrementer les jours consécutifs pour tester */}
+      <Button
+        title =" Cliquer ici pour incrementer les jours"
+        onPress={incrementerJoursConsecutifs}
+      />
+
+      <Input
+        label="Jours consécutifs"
+        value={joursConsecutifs.toString()}
+        editable={false}
+      />
     </SafeAreaView>
   );
 }

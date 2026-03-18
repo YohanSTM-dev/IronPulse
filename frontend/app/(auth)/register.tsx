@@ -25,27 +25,27 @@ export default function RegisterScreen() {
 
   const handleRegister = async () => {
     if (!email || !password || !username) {
-      Alert.alert('Error', 'Please fill in all fields');
+      Alert.alert('Erreur', 'Remplis tous les champs');
       return;
     }
 
     if (password !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match');
+      Alert.alert('Erreur', 'Les mots de passe ne correspondent pas');
       return;
     }
 
     if (password.length < 6) {
-      Alert.alert('Error', 'Password must be at least 6 characters');
+      Alert.alert('Erreur', 'Le mot de passe doit faire au moins 6 caractères');
       return;
     }
 
     const { error } = await signUp(email, password, username);
     if (error) {
-      Alert.alert('Registration Failed', error);
+      Alert.alert('Échec de l’inscription', error);
     } else {
       Alert.alert(
-        'Success',
-        'Account created! Please check your email to verify your account.',
+        'Compte créé',
+        'Un e-mail de vérification vient de vous être envoyé Par mail. Merci de valider votre compte.',
         [{ text: 'OK', onPress: () => router.replace('/(tabs)') }]
       );
     }
@@ -71,17 +71,17 @@ export default function RegisterScreen() {
 
           {/* Header */}
           <View style={styles.header}>
-            <Text style={styles.title}>Create Account</Text>
+            <Text style={styles.title}>Créer un compte</Text>
             <Text style={styles.subtitle}>
-              Join IronPulse and start your fitness journey
+              Rejoins IronPulse et démarre ton parcours forme
             </Text>
           </View>
 
           {/* Form */}
           <View style={styles.form}>
             <Input
-              label="Username"
-              placeholder="Choose a username"
+              label="Nom d’utilisateur"
+              placeholder="Choisis un pseudo"
               value={username}
               onChangeText={setUsername}
               autoCapitalize="none"
@@ -89,8 +89,8 @@ export default function RegisterScreen() {
             />
 
             <Input
-              label="Email"
-              placeholder="Enter your email"
+              label="E-mail"
+              placeholder="Entrez votre e-mail"
               value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
@@ -99,8 +99,8 @@ export default function RegisterScreen() {
             />
 
             <Input
-              label="Password"
-              placeholder="Create a password"
+              label="Mot de passe"
+              placeholder="Crée un mot de passe"
               value={password}
               onChangeText={setPassword}
               secureTextEntry
@@ -108,8 +108,8 @@ export default function RegisterScreen() {
             />
 
             <Input
-              label="Confirm Password"
-              placeholder="Confirm your password"
+              label="Confirme le mot de passe"
+              placeholder="Confirme ton mot de passe"
               value={confirmPassword}
               onChangeText={setConfirmPassword}
               secureTextEntry
@@ -117,7 +117,7 @@ export default function RegisterScreen() {
             />
 
             <Button
-              title="Create Account"
+              title="Créer le compte"
               onPress={handleRegister}
               loading={loading}
               style={styles.registerButton}
@@ -126,9 +126,9 @@ export default function RegisterScreen() {
 
           {/* Login Link */}
           <View style={styles.footer}>
-            <Text style={styles.footerText}>Already have an account?</Text>
+            <Text style={styles.footerText}>Déjà un compte ?</Text>
             <TouchableOpacity onPress={() => router.back()}>
-              <Text style={styles.loginLink}> Sign In</Text>
+              <Text style={styles.loginLink}> Se connecter</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>

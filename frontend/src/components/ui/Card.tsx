@@ -21,13 +21,18 @@ export const Card: React.FC<CardProps> = ({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#1E293B',
-    borderRadius: 16,
-    padding: 16,
+    backgroundColor: '#131C2E',
+    borderRadius: 22,
+    padding: 18,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: 'rgba(148, 163, 184, 0.12)',
+    shadowColor: '#020617',
+    shadowOpacity: 0.18,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 4,
   },
   glass: {
-    backgroundColor: 'rgba(30, 41, 59, 0.8)',
+    backgroundColor: 'rgba(19, 28, 46, 0.82)',
   },
 });
