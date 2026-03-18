@@ -119,16 +119,16 @@ export default function HomeScreen() {
             </TouchableOpacity>
           </View>
           <Text style={styles.heroTitle}>
-            {todaySession ? todaySession.name : 'Aucune seance imposee'}
+            {todaySession ? todaySession.name : 'Aucune séance imposée'}
           </Text>
           <Text style={styles.heroText}>
             {todaySession
-              ? `${todaySession.exercises.length} exercices deja prets. Tu peux lancer la bonne seance sans repasser par le planning.`
-              : 'Tu es libre aujourd’hui. Tu peux recuperer ou lancer une seance libre en deux taps.'}
+              ? `${todaySession.exercises.length} exercices déjà prêts. Tu peux lancer la bonne séance sans repasser par le planning.`
+              : 'Tu es libre aujourd’hui. Tu peux récupérer ou lancer une séance libre en deux taps.'}
           </Text>
           <View style={styles.heroActions}>
             <Button
-              title={todaySession ? 'Demarrer maintenant' : 'Seance libre'}
+              title={todaySession ? 'Démarrer maintenant' : 'Séance libre'}
               onPress={() => router.push('/(tabs)/train')}
               style={styles.heroPrimary}
               textStyle={styles.heroPrimaryText}
@@ -156,7 +156,7 @@ export default function HomeScreen() {
           <Card style={styles.metricCard}>
             <Text style={styles.metricLabel}>Aujourd&apos;hui</Text>
             <Text style={styles.metricValue}>{todaySets}</Text>
-            <Text style={styles.metricHint}>series loggees</Text>
+            <Text style={styles.metricHint}>séries loguées</Text>
           </Card>
         </View>
 
@@ -175,7 +175,7 @@ export default function HomeScreen() {
           </View>
           {upcomingSessions.length === 0 ? (
             <Card>
-              <Text style={styles.emptyText}>Aucune seance a venir pour le moment.</Text>
+              <Text style={styles.emptyText}>Aucune séance à venir pour le moment.</Text>
             </Card>
           ) : (
             upcomingSessions.map((session, index) => (
@@ -211,7 +211,7 @@ export default function HomeScreen() {
 
           {recentWorkouts.length === 0 ? (
             <Card>
-              <Text style={styles.emptyText}>Aucune seance terminee pour le moment.</Text>
+              <Text style={styles.emptyText}>Aucune séance terminée pour le moment.</Text>
             </Card>
           ) : (
             recentWorkouts.map((workout) => (
@@ -223,7 +223,7 @@ export default function HomeScreen() {
                   <View style={styles.historyInfo}>
                     <Text style={styles.historyTitle}>{workout.name}</Text>
                     <Text style={styles.historyMeta}>
-                      {format(new Date(workout.date), 'd MMM yyyy', { locale: fr })} · {workout.totalSets} series · {workout.durationMinutes} min
+                      {format(new Date(workout.date), 'd MMM yyyy', { locale: fr })} · {workout.totalSets} séries · {workout.durationMinutes} min
                     </Text>
                     {workout.exercises.length > 0 ? (
                       <Text style={styles.historyDetail}>
@@ -246,7 +246,7 @@ export default function HomeScreen() {
           </View>
           {recentPrs.length === 0 ? (
             <Card>
-              <Text style={styles.emptyText}>Aucun PR enregistre pour le moment.</Text>
+              <Text style={styles.emptyText}>Aucun PR enregistré pour le moment.</Text>
             </Card>
           ) : (
             recentPrs.map((record) => (

@@ -44,7 +44,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
         <View style={styles.headerCopy}>
           <Text style={styles.exerciseName}>{name}</Text>
           <Text style={styles.exerciseMeta}>
-            {completedSets}/{sets.length} series validees
+            {completedSets}/{sets.length} séries validées
           </Text>
         </View>
         <TouchableOpacity onPress={onRemoveExercise} style={styles.removeBtn}>
@@ -53,7 +53,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
       </View>
 
       <View style={styles.legend}>
-        <Text style={styles.legendText}>Serie</Text>
+        <Text style={styles.legendText}>Série</Text>
         <Text style={styles.legendText}>Kg</Text>
         <Text style={styles.legendText}>Reps</Text>
         <Text style={styles.legendText}>OK</Text>
@@ -104,7 +104,7 @@ export const ExerciseCard: React.FC<ExerciseCardProps> = ({
 
       <TouchableOpacity style={styles.addSetBtn} onPress={onAddSet}>
         <Ionicons name="add-circle-outline" size={18} color="#10B981" />
-        <Text style={styles.addSetText}>Ajouter une serie</Text>
+        <Text style={styles.addSetText}>Ajouter une série</Text>
       </TouchableOpacity>
     </Card>
   );

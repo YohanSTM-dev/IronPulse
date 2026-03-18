@@ -73,7 +73,14 @@ export default function RecordsScreen() {
               >
                 <Ionicons name="remove" size={18} color="#E2E8F0" />
               </TouchableOpacity>
-              <Text style={styles.stepperValue}>{value || '0'}</Text>
+              <TextInput
+                style={styles.stepperInput}
+                value={value}
+                onChangeText={(v) => setValue(v.replace(/[^0-9.]/g, ''))}
+                keyboardType="decimal-pad"
+                placeholder="0"
+                placeholderTextColor="#64748B"
+              />
               <TouchableOpacity
                 onPress={() => setValue((v) => String(Number(v || '0') + 1))}
                 style={styles.stepperBtn}
@@ -185,5 +192,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#334155',
   },
-  stepperValue: { color: '#F8FAFC', fontSize: 16, fontWeight: '700' },
+  stepperInput: {
+    flex: 1,
+    color: '#F8FAFC',
+    fontSize: 16,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
 });
