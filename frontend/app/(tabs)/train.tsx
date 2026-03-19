@@ -132,9 +132,16 @@ export default function TrainScreen() {
   );
   const source = currentWorkout ? parseSource(currentWorkout.notes) : null;
 
+  const handleStartFromPlan = async (session: (typeof todaySessions)[0]) => {
+    const workout = await startWorkoutFromPlan(session);
+    if (!workout) {
+      Alert.alert('Erreur', 'Impossible de démarrer la séance. Vérifie ta connexion et réessaie.');
+    }
+  };
+
   const handleStartFreeWorkout = async () => {
     if (!freeWorkoutName.trim()) {
-      Alert.alert('Entrainement', 'Ajoute un nom de séance.');
+      Alert.alert('Entraînement', 'Ajoute un nom de séance.');
       return;
     }
 
@@ -142,6 +149,8 @@ export default function TrainScreen() {
     if (workout) {
       setShowStartModal(false);
       setFreeWorkoutName('');
+    } else {
+      Alert.alert('Erreur', 'Impossible de démarrer la séance. Vérifie ta connexion et réessaie.');
     }
   };
 
@@ -237,7 +246,8 @@ export default function TrainScreen() {
               {firstSession ? (
                 <Button
                   title={firstSession.status === 'in_progress' ? 'Reprendre' : 'Démarrer'}
-                  onPress={() => startWorkoutFromPlan(firstSession)}
+                  onPress={() => handleStartFromPlan(firstSession)}
+                  loading={loading}
                   style={styles.heroPrimary}
                   textStyle={styles.heroPrimaryText}
                 />
@@ -272,7 +282,7 @@ export default function TrainScreen() {
                       <Text style={styles.optionMeta}>{session.exercises.length} exercices prêts</Text>
                     </View>
                   </View>
-                  <Button title="Choisir cette séance" onPress={() => startWorkoutFromPlan(session)} variant="outline" />
+                  <Button title="Choisir cette séance" onPress={() => handleStartFromPlan(session)} loading={loading} variant="outline" />
                 </Card>
               ))}
             </View>
