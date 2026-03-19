@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 12,
+    borderRadius: 16,
     gap: 8,
   },
   button_sm: {
@@ -93,21 +93,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   button_md: {
-    height: 48,
+    height: 50,
     paddingHorizontal: 20,
   },
   button_lg: {
-    height: 56,
+    height: 58,
     paddingHorizontal: 24,
   },
   buttonPrimary: {
     backgroundColor: '#10B981',
+    shadowColor: '#10B981',
+    shadowOpacity: 0.22,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 4,
   },
   buttonSecondary: {
     backgroundColor: '#3B82F6',
   },
   buttonOutline: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'rgba(16, 185, 129, 0.06)',
     borderWidth: 1.5,
     borderColor: '#10B981',
   },

@@ -25,10 +25,10 @@ export default function ProfileScreen() {
   const [fullName, setFullName] = useState(profile?.full_name || '');
 
   const handleSignOut = () => {
-    Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
-      { text: 'Cancel', style: 'cancel' },
+    Alert.alert('Déconnexion', 'Tu veux vraiment te déconnecter ?', [
+      { text: 'Annuler', style: 'cancel' },
       {
-        text: 'Sign Out',
+        text: 'Déconnexion',
         style: 'destructive',
         onPress: async () => {
           await signOut();
@@ -45,10 +45,10 @@ export default function ProfileScreen() {
     });
 
     if (error) {
-      Alert.alert('Error', error);
+      Alert.alert('Erreur', error);
     } else {
       setShowEditModal(false);
-      Alert.alert('Success', 'Profile updated!');
+      Alert.alert('Succès', 'Profil mis à jour !');
     }
   };
 
@@ -57,25 +57,25 @@ export default function ProfileScreen() {
       icon: 'flame',
       color: '#F97316',
       value: profile?.streak_count || 0,
-      label: 'Current Streak',
+      label: 'Série actuelle',
     },
     {
       icon: 'trophy',
       color: '#FBBF24',
       value: profile?.longest_streak || 0,
-      label: 'Best Streak',
+      label: 'Meilleure série',
     },
     {
       icon: 'barbell',
       color: '#10B981',
       value: profile?.total_workouts || 0,
-      label: 'Total Workouts',
+      label: 'Séances totales',
     },
     {
       icon: 'star',
       color: '#3B82F6',
       value: Math.round(profile?.consistency_score || 0),
-      label: 'Consistency',
+      label: 'Constance',
     },
   ];
 
@@ -88,7 +88,7 @@ export default function ProfileScreen() {
       >
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.title}>Profile</Text>
+          <Text style={styles.title}>Profil</Text>
           <TouchableOpacity
             style={styles.settingsBtn}
             onPress={() => setShowEditModal(true)}
@@ -155,7 +155,7 @@ export default function ProfileScreen() {
             <View style={styles.menuIconBg}>
               <Ionicons name="bar-chart" size={20} color="#3B82F6" />
             </View>
-            <Text style={styles.menuText}>Workout History</Text>
+            <Text style={styles.menuText}>Historique</Text>
             <Ionicons name="chevron-forward" size={20} color="#64748B" />
           </TouchableOpacity>
 
@@ -171,7 +171,7 @@ export default function ProfileScreen() {
             <View style={styles.menuIconBg}>
               <Ionicons name="help-circle" size={20} color="#10B981" />
             </View>
-            <Text style={styles.menuText}>Help & Support</Text>
+            <Text style={styles.menuText}>Aide et support</Text>
             <Ionicons name="chevron-forward" size={20} color="#64748B" />
           </TouchableOpacity>
 
@@ -179,14 +179,14 @@ export default function ProfileScreen() {
             <View style={styles.menuIconBg}>
               <Ionicons name="shield-checkmark" size={20} color="#8B5CF6" />
             </View>
-            <Text style={styles.menuText}>Privacy Policy</Text>
+            <Text style={styles.menuText}>Politique de confidentialité</Text>
             <Ionicons name="chevron-forward" size={20} color="#64748B" />
           </TouchableOpacity>
         </View>
 
-        {/* Sign Out */}
+        {/* Déconnexion */}
         <Button
-          title="Sign Out"
+          title="Déconnexion"
           onPress={handleSignOut}
           variant="danger"
           style={styles.signOutBtn}
@@ -210,15 +210,15 @@ export default function ProfileScreen() {
             style={styles.modalContent}
           >
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>Edit Profile</Text>
+              <Text style={styles.modalTitle}>Modifier le profil</Text>
               <TouchableOpacity onPress={() => setShowEditModal(false)}>
                 <Ionicons name="close" size={24} color="#F8FAFC" />
               </TouchableOpacity>
             </View>
 
             <Input
-              label="Username"
-              placeholder="Enter username"
+              label="Pseudo"
+              placeholder="Entre ton pseudo"
               value={username}
               onChangeText={setUsername}
               autoCapitalize="none"
@@ -226,19 +226,21 @@ export default function ProfileScreen() {
             />
 
             <Input
-              label="Full Name"
-              placeholder="Enter your full name"
+              label="Nom complet"
+              placeholder="Entre ton nom complet"
               value={fullName}
               onChangeText={setFullName}
               icon="person-outline"
             />
 
             <Button
-              title="Save Changes"
+              title="Enregistrer"
               onPress={handleUpdateProfile}
               loading={loading}
               style={styles.modalButton}
             />
+
+
           </KeyboardAvoidingView>
         </View>
       </Modal>

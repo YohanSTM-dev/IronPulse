@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tabs, Redirect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { View, StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { useAuthStore } from '../../src/store/authStore';
 
 export default function TabLayout() {
@@ -18,6 +18,7 @@ export default function TabLayout() {
         tabBarStyle: styles.tabBar,
         tabBarActiveTintColor: '#10B981',
         tabBarInactiveTintColor: '#64748B',
+        tabBarActiveBackgroundColor: 'rgba(16, 185, 129, 0.14)',
         tabBarLabelStyle: styles.tabBarLabel,
         tabBarItemStyle: styles.tabBarItem,
       }}
@@ -25,29 +26,43 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          title: 'Accueil',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="train"
+        name="planning"
         options={{
-          title: 'Train',
+          title: 'Planning',
           tabBarIcon: ({ color, size }) => (
-            <View style={styles.trainIconContainer}>
-              <View style={styles.trainIconBg}>
-                <Ionicons name="barbell" size={24} color="#fff" />
-              </View>
-            </View>
+            <Ionicons name="calendar" size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="social"
+        name="train"
         options={{
-          title: 'Social',
+          title: 'Entraînement',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="barbell" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="records"
+        options={{
+          title: 'Records',
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="stats-chart" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="groups"
+        options={{
+          title: 'Groupes',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="people" size={size} color={color} />
           ),
@@ -56,10 +71,16 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
+          title: 'Profil',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person" size={size} color={color} />
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="social"
+        options={{
+          href: null,
         }}
       />
     </Tabs>
@@ -68,38 +89,22 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: '#1E293B',
-    borderTopWidth: 0,
-    height: Platform.OS === 'ios' ? 88 : 64,
-    paddingBottom: Platform.OS === 'ios' ? 24 : 8,
-    paddingTop: 8,
+    backgroundColor: '#111827',
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(148, 163, 184, 0.12)',
+    height: Platform.OS === 'ios' ? 92 : 70,
+    paddingBottom: Platform.OS === 'ios' ? 22 : 10,
+    paddingTop: 10,
     elevation: 0,
     shadowOpacity: 0,
   },
   tabBarLabel: {
     fontSize: 11,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   tabBarItem: {
     paddingTop: 4,
-  },
-  trainIconContainer: {
-    position: 'relative',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: -20,
-  },
-  trainIconBg: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: '#10B981',
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: '#10B981',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
-    elevation: 8,
+    marginHorizontal: 4,
+    borderRadius: 16,
   },
 });

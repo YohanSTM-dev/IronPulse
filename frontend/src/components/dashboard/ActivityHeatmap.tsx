@@ -59,15 +59,15 @@ export const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({
   };
 
   const grid = generateGrid();
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'];
+  const days = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
 
   return (
     <Card style={styles.card}>
       <View style={styles.header}>
-        <Text style={styles.title}>Activity</Text>
+        <Text style={styles.title}>Activité</Text>
         <Text style={styles.subtitle}>
-          {data.length} active days in {weeks} weeks
+          {data.length} jours actifs sur {weeks} semaines
         </Text>
       </View>
 
@@ -105,7 +105,7 @@ export const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({
 
       {/* Legend */}
       <View style={styles.legend}>
-        <Text style={styles.legendText}>Less</Text>
+        <Text style={styles.legendText}>Moins</Text>
         {[0, 1, 2, 3, 4, 5].map((level) => (
           <View
             key={level}
@@ -115,7 +115,7 @@ export const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({
             ]}
           />
         ))}
-        <Text style={styles.legendText}>More</Text>
+        <Text style={styles.legendText}>Plus</Text>
       </View>
     </Card>
   );
